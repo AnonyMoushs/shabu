@@ -22,7 +22,7 @@ const LoginComponents = () => {
   const Submit = (e) => {
     e.preventDefault()
 
-    Axios.post("http://localhost:3001/loginUser", loginInfo).then((response) => {
+    Axios.post("https://shabu-2rqmy5q8m-anonymoushs.vercel.app/loginUser", loginInfo).then((response) => {
 
     console.log(response.data.message)
 
@@ -42,7 +42,7 @@ const LoginComponents = () => {
 
   useEffect(() => {
 
-    Axios.get("http://localhost:3001/LoggedIn").then((response) => {
+    Axios.get("https://shabu-2rqmy5q8m-anonymoushs.vercel.app/LoggedIn").then((response) => {
 
     if(response.data.Message === "Authorized") {
       setIsAuthorized(true)
