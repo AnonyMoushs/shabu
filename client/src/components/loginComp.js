@@ -4,62 +4,57 @@ import { useState, useEffect } from "react"
 
 const LoginComponents = () => {
 
-  const [emailLogin, setEmailLogin] = useState();
-  const [passLogin, setPassLogin] = useState();
-  const [isAuthorized, setIsAuthorized] = useState()
-
-  const Navigate = useNavigate()
+ const [emailLogin, setEmailLogin] = useState("");
+  const [passLogin, setPassLogin] = useState("");
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const Navigate = useNavigate();
 
   const loginInfo = {
-
     email_address: emailLogin,
-    password: passLogin
-
-  }
-
-  
+    password: passLogin,
+  };
 
   const Submit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    Axios.post("https://shabu-oe9w2nf4w-anonymoushs.vercel.app/loginUser", loginInfo).then((response) => {
+    Axios.post(
+      "https://shabu-oe9w2nf4w-anonymoushs.vercel.app/loginUser",
+      loginInfo,
+      { withCredentials: true } // Send cookies with the request
+    )
+      .then((response) => {
+        console.log(response.data.message);
 
-    console.log(response.data.message)
-
-    if(response.data.message === "Login successful") {
-      Navigate("/welcome")
-    }
-
-   
-
-    }).catch((error) => {
-
-      console.log(error)
-
-    })
-
-  }
+        if (response.data.message === "Login successful") {
+          Navigate("/welcome");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-
-    Axios.get("https://shabu-oe9w2nf4w-anonymoushs.vercel.app/LoggedIn").then((response) => {
-
-    if(response.data.Message === "Authorized") {
-      setIsAuthorized(true)
-    } else {
-      setIsAuthorized(false)
-    }
-
+    Axios.get("https://shabu-oe9w2nf4w-anonymoushs.vercel.app/LoggedIn", {
+      withCredentials: true, // Send cookies with the request
     })
-
-  }, [])
-
-  Axios.defaults.withCredentials = true
+      .then((response) => {
+        if (response.data.Message === "Authorized") {
+          setIsAuthorized(true);
+        } else {
+          setIsAuthorized(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   if (isAuthorized) {
-    Navigate("/welcome"); 
-    return null; 
+    Navigate("/welcome");
+    return null;
   }
+
 
   return (
 
