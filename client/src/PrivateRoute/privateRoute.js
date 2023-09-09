@@ -11,7 +11,7 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
 
-    Axios.get("https://shabu-2rqmy5q8m-anonymoushs.vercel.app/LoggedIn").then((response) => {
+    Axios.get("https://shabu-oe9w2nf4w-anonymoushs.vercel.app/LoggedIn").then((response) => {
 
     console.log(response)
       
