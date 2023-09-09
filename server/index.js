@@ -22,15 +22,13 @@ mongoose.connect("mongodb+srv://francesdonz23:password12345@chit-chat.mtvdjuo.mo
 })
 
 
-app.use(cors(
-
-  {
-    origin: ["https://shabu-atif.vercel.app"],
-    methods: ["POST", "GET", "DELETE", "PUT"],
-    credentials: true
-  }
-
-));
+app.use(cors({
+  origin: ["https://shabu-atif.vercel.app"],
+  methods: ["POST", "GET", "DELETE", "PUT"],
+  credentials: true, // Allow credentials (cookies) to be sent
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  exposedHeaders: ["set-cookie"], // Expose the set-cookie header
+}));
 
 
 app.use(express.json());
